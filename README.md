@@ -30,8 +30,8 @@ Main features:
 #### Env vars
 
 Essential:
-* YANDEX_KEY - essential
-* AUDIO_PATH - essential
+* YANDEX_KEY - key you get from yandex dashboard
+* AUDIO_PATH - full path for folder that will contain all cached tts files
 
 Optional (If not defined will use default value):
 * DEFAULT_LANG - default language for tts (*Default* is russian(ru-RU), can be en-US for english, uk-UK for ukrainian or tr-TR for turkish)
