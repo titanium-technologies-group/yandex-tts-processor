@@ -26,7 +26,6 @@ Main features:
 * Can be simply dockerized and used from box
 * Fully customizable
 
-
 #### Env vars
 
 Essential:
@@ -43,4 +42,6 @@ Optional (If not defined will use default value):
 
 Additional information for optional parameters can be found [here](https://tech.yandex.ru/speechkit/cloud/doc/guide/concepts/tts-http-request-docpage/)
 
+#### Notes
+On save in cache library will encode file name in base64 and replace all slashes(/) into pipe(|) to prevent conflicts with operating system.
 

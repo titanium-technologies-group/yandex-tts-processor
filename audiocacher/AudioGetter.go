@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/titanium-codes/yandex-tts-processor/env"
+	"encoding/base64"
 	"fmt"
 	"os"
 	"io"
@@ -12,6 +13,7 @@ import (
 	"github.com/kataras/go-errors"
 	"io/ioutil"
 	"strconv"
+	"strings"
 )
 
 const (
@@ -54,7 +56,7 @@ Zips all audio files.
  */
 func GetTtsForText(text string) (string, error) {
 	log.Println("Getting tts for text =", text)
-	zipName := text + ".zip"
+	zipName := base64Encode(text)
 	pathForZip := path + zipName
 	if _, err := os.Stat(pathForZip); os.IsNotExist(err) {
 		if err := downloadAndSaveZip(text); err != nil {
@@ -69,7 +71,7 @@ func GetTtsForText(text string) (string, error) {
 func downloadAndSaveZip(text string) error {
 	requestUrl := formUrl(text)
 	fileName := "audio." + audioFormat
-	zipName := text + ".zip"
+	zipName := base64Encode(text)
 	log.Println(requestUrl)
 	resp, err := http.Get(requestUrl)
 	output, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
@@ -178,4 +180,8 @@ func initFolderForAudio() {
 	} else {
 		log.Println("Using existing folder at path : ", path)
 	}
+}
+
+func base64Encode(str string) string {
+	return strings.Replace(base64.StdEncoding.EncodeToString([]byte(str)), "/", "|", -1)
 }
